@@ -7,4 +7,4 @@ def index():
 
 @app.route('/hello')
 def hello():
-    return 'Hello, World'
+    return ', World'

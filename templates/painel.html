@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Switch Manager SNMP</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{{url_for('static', filename = 'plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .card{
+          width: 50%;
+          margin-left: auto;
+          margin-right: auto;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+          transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+      }
+      .card:hover {
+          box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
+
+
+      #input_ip{
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #bnt_conectar{
+          margin-top: 10px;
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename = 'plugins/bootstrap/css/floating-labels.css')}}" rel="stylesheet">
+  </head>
+  <body>
+      <div class="card text-center">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Conexão</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Conecte-se ao Switch</h5>
+            <p class="card-text">Insira abaixo o IP do Switch:</p>
+            <input class="form-control form-control-lg" id="input_ip" type="text" value="10.90.90.90">
+            <a href="#" class="btn btn-primary" id="bnt_conectar">Conectar</a>
+          </div>
+</div>
+</body>
+</html>
