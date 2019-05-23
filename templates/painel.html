@@ -31,6 +31,7 @@
       }
       .card{
           width: 50%;
+          height: 80%;
           margin-left: auto;
           margin-right: auto;
           box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -49,6 +50,10 @@
       #bnt_conectar{
           margin-top: 10px;
       }
+
+      .btn-porta{
+          margin-top: 10px;
+      }
     </style>
     <!-- Custom styles for this template -->
     <link href="{{url_for('static', filename = 'plugins/bootstrap/css/floating-labels.css')}}" rel="stylesheet">
@@ -58,22 +63,155 @@
           <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
               <li class="nav-item">
-                <a class="nav-link active" href="#">Conexão</a>
+                <a class="nav-link active" id="aba1" onclick="muda_tab(1);" href="#">Conexão</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" id="aba2" onclick="muda_tab(2);" href="#">Portas</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+                <a class="nav-link" id="aba3" onclick="muda_tab(3);" href="#">Escalonamento</a>
               </li>
             </ul>
           </div>
           <div class="card-body">
-            <h5 class="card-title">Conecte-se ao Switch</h5>
-            <p class="card-text">Insira abaixo o IP do Switch:</p>
-            <input class="form-control form-control-lg" id="input_ip" type="text" value="10.90.90.90">
-            <a href="#" class="btn btn-primary" id="bnt_conectar">Conectar</a>
+            <div class="tela" id="tela1" style="display:unset;">
+              <h5 class="card-title">Conecte-se ao Switch</h5>
+              <p class="card-text">Insira abaixo o IP do Switch:</p>
+              <input class="form-control form-control-lg" id="input_ip" type="text" value="10.90.90.90">
+              <a href="#" class="btn btn-primary" id="bnt_conectar">Conectar</a>
+            </div>
+            <div class="tela" id="tela2" style="display:none;">
+              <div class="row">
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 1</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 7</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 13</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 19</button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 2</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 8</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 14</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 20</button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 3</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 9</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 15</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 21</button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 4</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 10</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 16</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 22</button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 5</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 11</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 17</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 23</button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 6</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 12</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 18</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 24</button>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="tela" id="tela3" style="display:none;">
+
+            </div>
+
           </div>
 </div>
+<script type="text/javascript">
+  function muda_tab(numero) {
+    var tela1 = document.getElementById("tela1");
+    var tela2 = document.getElementById("tela2");
+    var tela3 = document.getElementById("tela3");
+    var aba1 = document.getElementById("aba1");
+    var aba2 = document.getElementById("aba2");
+    var aba3 = document.getElementById("aba3");
+    if (numero == 1) {
+      tela1.style.display = "unset";
+      tela2.style.display = "none";
+      tela3.style.display = "none";
+      aba1.classList.add("active");
+      aba2.classList.remove("active");
+      aba3.classList.remove("active");
+    }
+    if (numero == 2) {
+      tela1.style.display = "none";
+      tela2.style.display = "unset";
+      tela3.style.display = "none";
+      aba1.classList.remove("active");
+      aba2.classList.add("active");
+      aba3.classList.remove("active");
+    }
+    if (numero == 3) {
+      tela1.style.display = "none";
+      tela2.style.display = "none";
+      tela3.style.display = "unset";
+      aba1.classList.remove("active");
+      aba2.classList.remove("active");
+      aba3.classList.add("active");
+    }
+  }
+</script>
 </body>
 </html>
