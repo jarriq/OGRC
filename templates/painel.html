@@ -11,8 +11,15 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
 
     <!-- Bootstrap core CSS -->
-<link href="{{url_for('static', filename = 'plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{{url_for('static', filename = 'plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script src="{{url_for('static', filename = 'plugins/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+
+    
+
+    
 
     <style>
       .bd-placeholder-img {
@@ -86,88 +93,88 @@
                   <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 1</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 7</button>
+                  <button type="button" id="porta7" onclick="clica_porta(7)" class="btn btn-success btn-porta">N° 7</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 13</button>
+                  <button type="button" id="porta13" onclick="clica_porta(13)" class="btn btn-success btn-porta">N° 13</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 19</button>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 2</button>
-                </div>
-                <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 8</button>
-                </div>
-                <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 14</button>
-                </div>
-                <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 20</button>
+                  <button type="button" id="porta19" onclick="clica_porta(19)" class="btn btn-success btn-porta">N° 19</button>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 3</button>
+                  <button type="button" id="porta2" onclick="clica_porta(2)" class="btn btn-success btn-porta">N° 2</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 9</button>
+                  <button type="button" id="porta8" onclick="clica_porta(8)" class="btn btn-success btn-porta">N° 8</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 15</button>
+                  <button type="button" id="porta14" onclick="clica_porta(14)" class="btn btn-success btn-porta">N° 14</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 21</button>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 4</button>
-                </div>
-                <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 10</button>
-                </div>
-                <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 16</button>
-                </div>
-                <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 22</button>
+                  <button type="button" id="porta20" onclick="clica_porta(20)" class="btn btn-success btn-porta">N° 20</button>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 5</button>
+                  <button type="button" id="porta3" onclick="clica_porta(3)" class="btn btn-success btn-porta">N° 3</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 11</button>
+                  <button type="button" id="porta9" onclick="clica_porta(9)" class="btn btn-success btn-porta">N° 9</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 17</button>
+                  <button type="button" id="porta15" onclick="clica_porta(15)" class="btn btn-success btn-porta">N° 15</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 23</button>
+                  <button type="button" id="porta21" onclick="clica_porta(21)" class="btn btn-success btn-porta">N° 21</button>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 6</button>
+                  <button type="button" id="porta4" onclick="clica_porta(4)" class="btn btn-success btn-porta">N° 4</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 12</button>
+                  <button type="button" id="porta10" onclick="clica_porta(10)" class="btn btn-success btn-porta">N° 10</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 18</button>
+                  <button type="button" id="porta16" onclick="clica_porta(16)" class="btn btn-success btn-porta">N° 16</button>
                 </div>
                 <div class="col">
-                  <button type="button" id="porta1" onclick="clica_porta(1)" class="btn btn-success btn-porta">N° 24</button>
+                  <button type="button" id="porta22" onclick="clica_porta(22)" class="btn btn-success btn-porta">N° 22</button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <button type="button" id="porta5" onclick="clica_porta(5)" class="btn btn-success btn-porta">N° 5</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta11" onclick="clica_porta(11)" class="btn btn-success btn-porta">N° 11</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta17" onclick="clica_porta(17)" class="btn btn-success btn-porta">N° 17</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta23" onclick="clica_porta(23)" class="btn btn-success btn-porta">N° 23</button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <button type="button" id="porta6" onclick="clica_porta(6)" class="btn btn-success btn-porta">N° 6</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta12" onclick="clica_porta(12)" class="btn btn-success btn-porta">N° 12</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta18" onclick="clica_porta(18)" class="btn btn-success btn-porta">N° 18</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="porta24" onclick="clica_porta(24)" class="btn btn-success btn-porta">N° 24</button>
                 </div>
               </div>
 
@@ -180,6 +187,81 @@
           </div>
 </div>
 <script type="text/javascript">
+  var status_portas = {
+    '1':true,
+    '2':true,
+    '3':true,
+    '4':true,
+    '5':true,
+    '6':true,
+    '7':true,
+    '8':true,
+    '9':true,
+    '10':true,
+    '11':true,
+    '12':true,
+    '13':true,
+    '14':true,
+    '15':true,
+    '16':true,
+    '17':true,
+    '18':true,
+    '19':true,
+    '20':true,
+    '21':true,
+    '22':true,
+    '23':true,
+    '24':true
+  }
+
+  function clica_porta(porta) {
+      if(status_portas[porta]){
+        Swal.fire({
+        title: 'Deseja fechar a porta '+porta+'?',
+        text: "Isso pode ser de difícil reversão!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim'
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Fechada!',
+            'A porta '+porta+' foi bloqueada.',
+            'success'
+          );
+          muda_botao(porta);
+          status_portas[porta] = false;
+          
+
+        }
+        })
+      }else{
+        Swal.fire(
+          'Porta liberada',
+          'A porta '+porta+' foi aberta com sucesso',
+          'success'
+        )
+      }
+      muda_botao(porta);
+      status_portas[porta] = true;
+  }
+
+  function muda_botao(porta){
+    var botao = document.getElementById("porta"+porta);
+    if(status_portas[porta]){
+      botao.classList.remove("btn-success");
+      botao.classList.add("btn-danger");
+    }else{
+      botao.classList.remove("btn-danger");
+      botao.classList.add("btn-success");
+    }
+    
+  }
+
+
+
   function muda_tab(numero) {
     var tela1 = document.getElementById("tela1");
     var tela2 = document.getElementById("tela2");
