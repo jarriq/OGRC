@@ -316,18 +316,24 @@
 
 atualiza_cor_botao();
 
-function add_tarefa() {
+function add_tarefa(conectar, data, hora, porta) {
   var lista_agenda = document.getElementById("lista_agenda");
+  var cor;
+  if(conectar){
+     cor = '#28a745';
+  }else{
+     cor = '#dc3545';
+  }
   var html = '  <li class="list-group-item d-flex justify-content-between align-items-center">';
       html += 'Conectar  &nbsp &nbsp &nbsp';
-      html += '<span class="badge badge-primary badge-pill" style="background-color:#28a745;">14/06/2019</span>';
-      html += '<span class="badge badge-primary badge-pill" style="background-color:#28a745;">15:55</span>';
-      html += '<span class="badge badge-primary badge-pill" style="background-color:#28a745;">Porta 21</span>';
+      html += '<span class="badge badge-primary badge-pill" style="background-color:'+cor+';">'+data+'</span>';
+      html += '<span class="badge badge-primary badge-pill" style="background-color:'+cor+';">'+hora+'</span>';
+      html += '<span class="badge badge-primary badge-pill" style="background-color:'+cor+';">Porta '+porta+'</span>';
       html +='</li>';
       lista_agenda.innerHTML+=  html;
 }
 
-add_tarefa();
+add_tarefa(true, '14/09/2019', '15:54', 21);
 
   function muda_tab(numero) {
     var tela1 = document.getElementById("tela1");
