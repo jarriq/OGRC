@@ -316,16 +316,40 @@
 
 atualiza_cor_botao();
 
+function atualiza_tarefas() {
+    lista_agenda = document.getElementById("lista_agenda");
+    lista_agenda.innerHTML = '';
+    var conectar;
+    var data;
+    var horario; 
+    var porta;
+    var executado; 
+    for(var tarefa in escalonamento){
+      conectar = escalonamento[tarefa].conectar;
+      data = escalonamento[tarefa].data;
+      horario = escalonamento[tarefa].horario; 
+      porta = escalonamento[tarefa].porta;
+      executado = escalonamento[tarefa].executado;
+
+      add_tarefa(conectar, data, horario, porta);
+    }
+  }
+
+atualiza_tarefas();
+
 function add_tarefa(conectar, data, hora, porta) {
   var lista_agenda = document.getElementById("lista_agenda");
   var cor;
+  var texto_conectar;
   if(conectar){
      cor = '#28a745';
+     texto_conectar = 'Conectar  &nbsp &nbsp &nbsp';  
   }else{
      cor = '#dc3545';
+     texto_conectar = 'Desconectar';
   }
   var html = '  <li class="list-group-item d-flex justify-content-between align-items-center">';
-      html += 'Conectar  &nbsp &nbsp &nbsp';
+      html += texto_conectar;
       html += '<span class="badge badge-primary badge-pill" style="background-color:'+cor+';">'+data+'</span>';
       html += '<span class="badge badge-primary badge-pill" style="background-color:'+cor+';">'+hora+'</span>';
       html += '<span class="badge badge-primary badge-pill" style="background-color:'+cor+';">Porta '+porta+'</span>';
@@ -333,7 +357,11 @@ function add_tarefa(conectar, data, hora, porta) {
       lista_agenda.innerHTML+=  html;
 }
 
-add_tarefa(true, '14/09/2019', '15:54', 21);
+
+
+
+
+
 
   function muda_tab(numero) {
     var tela1 = document.getElementById("tela1");
