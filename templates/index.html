@@ -13,6 +13,10 @@
     <!-- Bootstrap core CSS -->
 <link href="{{url_for('static', filename = 'plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script src="{{url_for('static', filename = 'plugins/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+
 
     <style>
       .bd-placeholder-img {
@@ -34,7 +38,18 @@
     <link href="{{url_for('static', filename = 'plugins/bootstrap/css/floating-labels.css')}}" rel="stylesheet">
   </head>
   <body>
-    <form class="form-signin">
+  {% if erro_login %}
+  <script type="text/javascript">
+      Swal.fire({
+    type: 'error',
+    title: 'Oops...',
+    text: 'Email ou senha invalidos!'
+  })
+  </script>
+  {% endif %}
+
+
+    <form class="form-signin" action='logar' method='POST'>
   <div class="text-center mb-4">
     <img class="mb-4" src="{{url_for('static', filename = 'img/snmp.png')}}" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Switch Manager SNMP</h1>
@@ -42,12 +57,12 @@
   </div>
 
   <div class="form-label-group">
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+    <input type="email" id="inputEmail" name='email' class="form-control" placeholder="Email" required autofocus>
     <label for="inputEmail">Email</label>
   </div>
 
   <div class="form-label-group">
-    <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+    <input type="password" id="inputPassword" name='senha' class="form-control" placeholder="Senha" required>
     <label for="inputPassword">Senha</label>
   </div>
 
@@ -56,8 +71,37 @@
       <input type="checkbox" value="remember-me"> Lembrar-me
     </label>
   </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+  <button type="submit" class="btn btn-lg btn-primary btn-block" href="#" onclick="logar()" >Entrar</button>
   <p class="mt-5 mb-3 text-muted text-center">&copy; 2019</p>
 </form>
+
+<script type="text/javascript">
+  function logar() {
+          var credencial = {'login':'', 'senha': ''};
+          var email = document.getElementById('inputEmail').value;
+          var senha = document.getElementById('inputPassword').value;
+          credencial['login'] = email;
+          credencial['senha'] = senha;
+
+          var cred_str = JSON.stringify(credencial);
+
+          var req = new XMLHttpRequest();
+          req.onreadystatechange = function(){
+            
+            if(this.readyState == 4 && this.status == 200) {
+                
+                }
+          }
+          console.log(cred_str);   
+          req.open('POST', '/logar', true);
+          req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+          req.send("creds="+cred_str);
+      
+    }
+
+
+</script>
+
+
 </body>
 </html>
