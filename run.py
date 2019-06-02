@@ -13,7 +13,7 @@ def hello_world():
 	return render_template('index.html')
 
 @app.route('/painel')
-@flask_login.login_required
+#@flask_login.login_required
 def painel():
     return render_template('painel.html')
 
@@ -81,6 +81,52 @@ def unauthorized_handler():
     return redirect("../")
 
 #################### Fim Login ####################
+
+
+#################### Conectar ao Switch ####################
+
+@app.route("/conectar", methods=['POST'])
+def conectar():
+	dados_conexao = request.form['dados_conexao']
+	dados_conexao = json.loads(dados_conexao)
+	ip_switch = dados_conexao['ip']
+	comunidade = dados_conexao['comunidade']
+
+	print(ip_switch, comunidade)
+	print('conectando')
+	print('conectado')
+
+	#codigos
+	#conectado - conectou ao switch
+	#erro - não conectou
+
+	return "conectado"
+
+#################### Fim Conectar ao Switch ####################
+
+#################### Controle de Portas ####################
+@app.route("/portas", methods=['POST'])
+def portas():
+	portas_opcao = request.form['porta_opcao']
+	portas_opcao = json.loads(portas_opcao)
+	porta = portas_opcao['porta']
+	opcao = portas_opcao['opcao']
+
+	if opcao == 1:
+		print("abrir")
+	if opcao == 2:
+		print("fechar")
+	if opcao == 3:
+		print("teste")
+
+	#codigos
+	#sucesso - operacao concluida
+	#falha - operacao falhou
+
+	return "sucesso"
+
+#################### Fim Controle de Portas ####################
+
 
 
 if __name__=="__main__":
