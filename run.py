@@ -3,6 +3,7 @@ import json
 import flask_login
 import os
 from ogrc.snmp import SNMP
+from ogrc import db
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
