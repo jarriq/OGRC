@@ -2,11 +2,14 @@ from flask import Flask, render_template, request, redirect
 import json
 import flask_login
 import os
+from ogrc.snmp import SNMP
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
+
+manager = SNMP()
 
 @app.route('/')
 def hello_world():
@@ -57,7 +60,7 @@ def request_loader(request):
 def logar():
 	if request.method == 'GET':
 		return render_template('index.html', erro_login=True)
-	
+
 	email = request.form['email']
 	senha = request.form['senha']
 
@@ -91,16 +94,19 @@ def conectar():
 	dados_conexao = json.loads(dados_conexao)
 	ip_switch = dados_conexao['ip']
 	comunidade = dados_conexao['comunidade']
-
+	manager.ip_switch = ip_switch
+	manager.comunidade = comunidade
 	print(ip_switch, comunidade)
-	print('conectando')
-	print('conectado')
 
-	#codigos
-	#conectado - conectou ao switch
-	#erro - não conectou
+	print('Testando conexão com switch...')
+	if manager.testa_conexao():
+		print('Conectado ao switch')
+		return "conectado"
+	else:
+		print('Conexão falhou')
+		return "deu ruim"
 
-	return "conectado"
+
 
 #################### Fim Conectar ao Switch ####################
 
@@ -110,20 +116,21 @@ def portas():
 	portas_opcao = request.form['porta_opcao']
 	portas_opcao = json.loads(portas_opcao)
 	porta = portas_opcao['porta']
-	opcao = portas_opcao['opcao']
+	comando = portas_opcao['opcao']
 
-	if opcao == 1:
-		print("abrir")
-	if opcao == 2:
-		print("fechar")
-	if opcao == 3:
-		print("teste")
+	if comando == 1:
+		print("Comando abrir porta:", porta)
+	elif comando == 2:
+		print("Comando fechar porta:", porta)
+	elif comando == 3:
+		print("Comando teste porta:", porta)
+	else:
+		raise ValueError("Comando inválido != (1-3)")
 
-	#codigos
-	#sucesso - operacao concluida
-	#falha - operacao falhou
-
-	return "sucesso"
+	if manager.altera_porta(porta, comando):
+		return "sucesso"
+	else:
+		return "fracasso"
 
 #################### Fim Controle de Portas ####################
 
