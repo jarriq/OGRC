@@ -196,7 +196,8 @@
               <h5 class="card-title">Conecte-se ao Switch</h5>
               <p class="card-text">Insira abaixo o IP do Switch e a Comunidade:</p>
               <input class="form-control form-control-lg" id="input_ip" type="text" value="10.90.90.90">
-              <input class="form-control form-control-lg" id="input_comunidade" type="text" value="public">
+              <br>
+              <input class="form-control form-control-lg" id="input_comunidade" type="text" value="private">
               <a href="#" class="btn btn-primary" onclick="conectar()" id="bnt_conectar">Conectar</a>
             </div>
             <div class="tela" id="tela2" style="display:none;">
@@ -294,7 +295,13 @@
             </div>
             <div class="tela" id="tela3" style="display:none;">
               <ul class="list-group" id="lista_agenda">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <select class="form-control">
+                      <option>Conectar</option>
+                       <option>Desconectar</option>
+                  </select>
+                  <br>
+                  <input class="form-control" type="date" name="bday">
+                <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                   Desconectar
                   <span class="badge badge-primary badge-pill">14/06/2019</span>
                   <span class="badge badge-primary badge-pill">15:53</span>
@@ -306,7 +313,7 @@
                   <span class="badge badge-primary badge-pill" style="background-color:#28a745;">14/06/2019</span>
                   <span class="badge badge-primary badge-pill" style="background-color:#28a745;">15:55</span>
                   <span class="badge badge-primary badge-pill" style="background-color:#28a745;">Porta 21</span>
-                </li>
+                </li> -->
 
 
               </ul>
@@ -315,12 +322,12 @@
           </div>
       </div>
       <div class="botao_mais">
-       
+
         <div class="item1">
           <a href="sair">
             <i class="nav1 two fa fa-sign-out fa-2x" title="Sair"></i>
           </a>
-          
+
           <div class="highlight1"></div>
         </div>
 
@@ -335,7 +342,17 @@
 
 
       </div>
+
+
+
+
 <script type="text/javascript">
+
+    Swal.fire({
+    html: '<a href="#">teste</a>'
+    })
+
+
 
   var dados_conexao = {
     'ip':'',
@@ -400,7 +417,7 @@ function conectar() {
 
           var req = new XMLHttpRequest();
           req.onreadystatechange = function(){
-            
+
             if(this.readyState == 4 && this.status == 200) {
                 resposta = this.responseText;
                 console.log(resposta);
@@ -421,11 +438,11 @@ function conectar() {
                 }
             }
           }
-          console.log(dados_conexao_str);   
+          console.log(dados_conexao_str);
           req.open('POST', '/conectar', true);
           req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
           req.send("dados_conexao="+dados_conexao_str);
-      
+
     }
 
 
@@ -438,7 +455,7 @@ function controla_porta(porta, opcao) {
 
           var req = new XMLHttpRequest();
           req.onreadystatechange = function(){
-            
+
             if(this.readyState == 4 && this.status == 200) {
                 resposta = this.responseText;
                 console.log(resposta);
@@ -462,8 +479,8 @@ function controla_porta(porta, opcao) {
                         muda_botao(porta);
                         status_portas[porta] = false;
                   }
-                  
-                  
+
+
                 }
                 if(resposta == "falha"){
                    Swal.fire({
@@ -474,11 +491,11 @@ function controla_porta(porta, opcao) {
                 }
             }
           }
-          console.log(porta_opcao_str);   
+          console.log(porta_opcao_str);
           req.open('POST', '/portas', true);
           req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
           req.send("porta_opcao="+porta_opcao_str);
-      
+
     }
 
 
@@ -497,7 +514,7 @@ function controla_porta(porta, opcao) {
           if (result.value) {
             controla_porta(porta, 2);
             }
-          
+
         })
       }else{
           controla_porta(porta, 1);
@@ -541,13 +558,13 @@ function atualiza_tarefas() {
     lista_agenda.innerHTML = '';
     var conectar;
     var data;
-    var horario; 
+    var horario;
     var porta;
-    var executado; 
+    var executado;
     for(var tarefa in escalonamento){
       conectar = escalonamento[tarefa].conectar;
       data = escalonamento[tarefa].data;
-      horario = escalonamento[tarefa].horario; 
+      horario = escalonamento[tarefa].horario;
       porta = escalonamento[tarefa].porta;
       executado = escalonamento[tarefa].executado;
 
@@ -555,7 +572,7 @@ function atualiza_tarefas() {
     }
   }
 
-atualiza_tarefas();
+//atualiza_tarefas();
 
 function add_tarefa(conectar, data, hora, porta) {
   var lista_agenda = document.getElementById("lista_agenda");
@@ -563,7 +580,7 @@ function add_tarefa(conectar, data, hora, porta) {
   var texto_conectar;
   if(conectar){
      cor = '#28a745';
-     texto_conectar = 'Conectar  &nbsp &nbsp &nbsp';  
+     texto_conectar = 'Conectar  &nbsp &nbsp &nbsp';
   }else{
      cor = '#dc3545';
      texto_conectar = 'Desconectar';

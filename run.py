@@ -3,10 +3,7 @@ import json
 import flask_login
 import os
 from ogrc.snmp import SNMP
-<<<<<<< HEAD
-from ogrc import db
-=======
->>>>>>> 73fd0a187dccfba1c5894e7c8fcd8aebdc2aa898
+#from ogrc import db
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -108,7 +105,7 @@ def conectar():
 		return "conectado"
 	else:
 		print('Conexão falhou')
-		return "deu ruim"
+		return "erro"
 
 
 
