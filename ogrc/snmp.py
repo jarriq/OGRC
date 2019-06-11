@@ -51,6 +51,14 @@ class SNMP():
                                        eIndex,
                                        varBinds)
 
+    def altera_todas_as_portas(self, command):
+        portas = list(range(2,24))
+
+        for port in portas:
+            if not self.altera_porta(port, command):
+                break
+
+
     def _verifica_comando(self, eIndication,
                                 eStatus,
                                 eIndex,
