@@ -137,5 +137,21 @@ def portas():
 
 
 
+############################## instruções ##############
+# Fazer autenticação com o banco
+# 	- A função logar() já funciona. Só falta ela verificar as credenciais no banco
+# 	- A verificação já é feita na linha 69
+
+# Fazer função(método post) que returna o status das portas no banco
+# 	- Deve retornar um json como está no arquivo painel.html
+# 	- O nome do json lá é status_portas
+
+# Fazer função (método post) que cadastra uma tarefa no banco
+# 	- A entrada é uma linha do json chamado escalonamento (olhar painel.html)
+# 	- Retorna ok para cadastrado e erro para não cadastrado
+
+# Fazer funcao (método post) que retorna todas as tarefas agendadas 
+# 	- O retorno deve ser um json, igual ao json escalonamento do arquivo painel.html
+
 if __name__=="__main__":
     app.run()
