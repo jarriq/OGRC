@@ -12,26 +12,48 @@ collections:
     portas:
         porta : bool,
         _id : str sala
-  
+
     escalonamento:
         conectar: bool,
         data: str,
         horario: str,
         porta : str,
         executado: bool
+
+
 """
 def cadastra_user(usuario):
     usuario = json.loads(usuario)
     db = CLIENTE['usuarios']
-    
-    db.usuarios.insert_one({"username":usuario['nome'],
+
+    print(list(db.usuarios.find({"username":usuario})))
+
+    if not list(db.usuarios.find({"username":usuario})):
+        print("Usuário já cadastrado")
+        return False
+
+    db.usuarios.insert_one({"username":usuario['usuario'],
                             "password":usuario['senha']})
+    return True
+
+def verifica_cadastro(user, pwd):
+    db = CLIENTE['usuarios']
+
+    res = db.usuarios.find({"username":user,
+                            "password":pwd})
+
+    res = list(res)
+    if res:
+        return True
+    return False
 
 
-def get_status_portas():
+
+
+def get_status_portas(sala="F301"):
     db = CLIENTE['status_portas']
 
-    return db.status_portas.find_one({"_id":"F301"})
+    return json.dumps(db.status_portas.find_one({"_id":sala}))
 
 def zera_status_portas():
     db = CLIENTE['status_portas']
@@ -70,24 +92,40 @@ def cadastra_agendamento(agend):
     agend = json.loads(agend)
 
     db = CLIENTE['agendamento']
-    
-    db.agendamento.insert_one({"conectar": agend.comando,
-                                "data": agend.data,
-                                "horario": agend.horario,
-                                "porta": agend.porta,
-                                "executado": agend.executado})
+    try:
+        db.agendamento.insert_one({"conectar": agend['conectar'],
+                                    "data": agend['data'],
+                                    "horario": agend['horario'],
+                                    "porta": agend['porta'],
+                                    "executado": agend['executado']})
+        return True
+    except:
+        return False
+
+
+def lista_agendamentos():
+    db = CLIENTE['agendamento']
+    return json.dumps(list(db.agendamento.find({}, {'_id':0})))
 
 
 if __name__ == '__main__':
+    agend = {
+          'conectar': True,
+          'data': '14/06/2019',
+          'horario': '15:55',
+          'porta' : '21',
+          'executado': False
+          }
+    agend = json.dumps(agend)
+
     banco = CLIENTE['teste']
     teste = banco.teste
-    consulta = {'user':'pedro alvarez cabral',
-                'senha':'123'}
-    res = teste.insert_one(consulta)
-    if res:
-        print('certo')
-    else:
-        print("errado")
 
     zera_status_portas()
     print(get_status_portas())
+    cadastra_agendamento(agend)
+    user =  json.dumps({'usuario':'admin', 'senha':'admin'})
+    cadastra_user(user)
+    print(lista_agendamentos())
+    print(verifica_cadastro('admin','admin'))
+    print(verifica_cadastro('admin','admin2'))

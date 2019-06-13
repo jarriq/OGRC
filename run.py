@@ -3,7 +3,7 @@ import json
 import flask_login
 import os
 from ogrc.snmp import SNMP
-#from ogrc import db
+from ogrc import db
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -66,7 +66,7 @@ def logar():
 	senha = request.form['senha']
 
 	#aqui a verificao do login
-	if email in users and senha == users[email]['password']:
+	if db.verifica_cadastro(email, senha):
 		user = User()
 		user.id = email
 		flask_login.login_user(user)
@@ -134,6 +134,23 @@ def portas():
 		return "fracasso"
 
 #################### Fim Controle de Portas ####################
+
+@app.route("/status", methods=['POST'])
+def pegar_status_portas():
+	return db.get_status_portas()
+
+@app.route("/escalonamento", methods=['POST'])
+def pegar_agendamentos():
+	return db.lista_agendamentos()
+
+@app.route("/agendar", methods=['POST'])
+def pegar_status_portas():
+	agend = request.form['agendamento']
+	if db.cadastra_agendamento(agend):
+		return "ok"
+	else:
+		return "erro"
+
 
 
 
