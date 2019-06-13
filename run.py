@@ -1,14 +1,22 @@
-from flask import Flask, render_template, request, redirect
 import json
-import flask_login
 import os
-from ogrc.snmp import SNMP
+
+from flask import Flask, redirect, render_template, request
+
+import flask_login
+start()
 from ogrc import db
+from ogrc.snmp import SNMP
+from ogrc.escalonador import Escalonador
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
+
+esc = Escalonador() 
+esc.sched.start()
+
 
 manager = SNMP()
 
@@ -144,9 +152,13 @@ def pegar_agendamentos():
 	return db.lista_agendamentos()
 
 @app.route("/agendar", methods=['POST'])
-def pegar_status_portas():
+def cadatra_agendamento():
 	agend = request.form['agendamento']
+	agend = json.loads(agend)
+	agend['ip_switch'] = manager.ip_switch
+	agend['comunidade'] = manager.comunidade
 	if db.cadastra_agendamento(agend):
+		esc.adiciona_agendamento(agend)
 		return "ok"
 	else:
 		return "erro"
