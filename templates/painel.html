@@ -15,7 +15,7 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <script src="{{url_for('static', filename = 'plugins/sweetalert2/sweetalert2.all.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'plugins/sweetalert/sweetalert2.all.min.js')}}"></script>
 
 
 
@@ -47,6 +47,10 @@
       .card:hover {
           box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
         }
+
+      .card-body{
+        overflow-y: auto;
+      }
 
       .tela{
         overflow-y: auto;
@@ -393,7 +397,7 @@
         </div>
 
          <div class="item1" title="Nova tarefa">
-          <i class="nav1 one fa fa-clock-o fa-2x" onclick="add_form_agenda()" title="Nova tarefa"></i>
+          <i class="nav1 one fa fa-clock-o fa-2x" onclick="muda_tab(3); add_form_agenda()" title="Nova tarefa"></i>
           <div class="highlight1"></div>
         </div>
 
@@ -670,6 +674,54 @@ function muda_botao_agenda(porta){
 
   }
 
+  function toArray(obj) {
+  var array = [];
+  // iterate backwards ensuring that length is an UInt32
+  for (var i = obj.length >>> 0; i--;) {
+    array[i] = obj[i];
+  }
+  return array;
+}
+
+  function botao_mudou(antes, depois) {
+    antes = toArray(antes);
+    depois = toArray(depois);
+    Array.prototype.diff = function(a) {
+      return this.filter(function(i) {return a.indexOf(i) < 0;});
+    };
+
+    var diferenca = antes.diff( depois );
+    console.log(diferenca);
+    if(diferenca.length != 0){
+      Swal.fire({
+        type: 'success',
+        title: 'Mudou',
+        text: ''
+      })
+    }
+  }
+
+
+  function atualiza_botao_porta(){
+    var botao;
+    var antes_botao;
+    var depois_botao;
+    for(i in status_portas){
+      botao = document.getElementById("porta"+parseInt(i));
+      antes_botao = botao.classList;
+      if(!status_portas[i]){
+        console.log(botao.classList);
+        botao.classList.remove("btn-success");
+        botao.classList.add("btn-danger");
+      }else{
+        botao.classList.remove("btn-danger");
+        botao.classList.add("btn-success");
+      }
+      depois_botao = botao.classList;
+      botao_mudou(antes_botao, depois_botao);
+    }
+  }
+
   function atualiza_cor_botao() {
     var botao;
     for(var porta in status_portas){
@@ -836,7 +888,21 @@ function escalonar() {
 
     }
 
-
+    function atualiza_status_porta() {
+              var resposta;
+              var req = new XMLHttpRequest();
+              req.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200) {
+                    resposta = this.responseText;
+                    console.log(resposta);
+                    status_portas = JSON.parse(resposta);
+                    atualiza_botao_porta();
+                }
+              }
+              req.open('POST', '/status', true);
+              req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+              req.send();
+  }
 
 
   function muda_tab(numero) {
@@ -855,8 +921,7 @@ function escalonar() {
       aba3.classList.remove("active");
     }
     if (numero == 2) {
-
-
+      atualiza_status_porta();
       tela1.style.display = "none";
       tela2.style.display = "unset";
       tela3.style.display = "none";
