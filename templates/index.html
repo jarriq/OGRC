@@ -15,7 +15,7 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <script src="{{url_for('static', filename = 'plugins/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'plugins/sweetalert2/sweetalert2.all.min.js')}}"></script>
 
 
     <style>
@@ -87,16 +87,16 @@
 
           var req = new XMLHttpRequest();
           req.onreadystatechange = function(){
-            
+
             if(this.readyState == 4 && this.status == 200) {
-                
+
                 }
           }
-          console.log(cred_str);   
+          console.log(cred_str);
           req.open('POST', '/logar', true);
           req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
           req.send("creds="+cred_str);
-      
+
     }
 
 

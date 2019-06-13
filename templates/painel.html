@@ -15,7 +15,7 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <script src="{{url_for('static', filename = 'plugins/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'plugins/sweetalert2/sweetalert2.all.min.js')}}"></script>
 
 
 
@@ -47,6 +47,10 @@
       .card:hover {
           box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
         }
+
+      .tela{
+        overflow-y: auto;
+      }
 
 
       #input_ip{
@@ -178,7 +182,8 @@
         margin-left: auto;
         margin-right: auto;
         display: block;
-        width: 40%;
+        width: 45%;
+
     }
 
     </style>
@@ -304,64 +309,58 @@
             </div>
             <div class="tela" id="tela3" style="display:none;">
               <ul class="list-group" id="lista_agenda">
-                  <div class="entradas">
-                      <select class="form-control" id="select_conexao">
-                          <option>Conectar</option>
-                           <option>Desconectar</option>
-                      </select>
-                      <br>
-                      <input class="form-control" type="date" id="data_tarefa" name="bday">
-                      <br>
-                      <input class="form-control" type="time" id="hora_tarefa" name="bhouer">
-                      <br>
+                    <!-- <div class="entradas">
+                        <select class="form-control" id="select_conexao">
+                            <option>Conectar</option>
+                             <option>Desconectar</option>
+                        </select>
+                        <br>
+                        <input class="form-control" type="date" id="data_tarefa" name="bday">
+                        <br>
+                        <input class="form-control" type="time" id="hora_tarefa" name="bhouer">
+                        <br>
 
 
-                      <div class="row">
+                        <div class="row">
+                          <div class="col">
+                            <button type="button" id="porta_agenda1" title="Porta de Comunicação" style="cursor: not-allowed" onclick="clica_porta_agenda(1)" class="btn btn-secondary btn-porta">N° 1</button>
+                            <button type="button" id="porta_agenda2" onclick="clica_porta_agenda(2)" class="btn btn-secondary btn-porta">N° 2</button>
+                            <button type="button" id="porta_agenda3" onclick="clica_porta_agenda(3)" class="btn btn-secondary btn-porta">N° 3</button>
+                            <button type="button" id="porta_agenda4" onclick="clica_porta_agenda(4)" class="btn btn-secondary btn-porta">N° 4</button>
+                            <button type="button" id="porta_agenda5" onclick="clica_porta_agenda(5)" class="btn btn-secondary btn-porta">N° 5</button>
+                            <button type="button" id="porta_agenda6" onclick="clica_porta_agenda(6)" class="btn btn-secondary btn-porta">N° 6</button>
+                          </div>
 
+                          <div class="col">
+                            <button type="button" id="porta_agenda7" onclick="clica_porta_agenda(7)" class="btn btn-secondary btn-porta">N° 7</button>
+                            <button type="button" id="porta_agenda8" onclick="clica_porta_agenda(8)" class="btn btn-secondary btn-porta">N° 8</button>
+                            <button type="button" id="porta_agenda9" onclick="clica_porta_agenda(9)" class="btn btn-secondary btn-porta">N° 9</button>
+                            <button type="button" id="porta_agenda10" onclick="clica_porta_agenda(10)" class="btn btn-secondary btn-porta">N° 10</button>
+                            <button type="button" id="porta_agenda11" onclick="clica_porta_agenda(11)" class="btn btn-secondary btn-porta">N° 11</button>
+                            <button type="button" id="porta_agenda12" onclick="clica_porta_agenda(12)" class="btn btn-secondary btn-porta">N° 12</button>
+                          </div>
 
-                        <div class="col">
-                          <button type="button" id="porta_agenda1" title="Porta de Comunicação" style="cursor: not-allowed" onclick="clica_porta_agenda(1)" class="btn btn-secondary btn-porta">N° 1</button>
-                          <button type="button" id="porta_agenda2" onclick="clica_porta_agenda(2)" class="btn btn-secondary btn-porta">N° 2</button>
-                          <button type="button" id="porta_agenda3" onclick="clica_porta_agenda(3)" class="btn btn-secondary btn-porta">N° 3</button>
-                          <button type="button" id="porta_agenda4" onclick="clica_porta_agenda(4)" class="btn btn-secondary btn-porta">N° 4</button>
-                          <button type="button" id="porta_agenda5" onclick="clica_porta_agenda(5)" class="btn btn-secondary btn-porta">N° 5</button>
-                          <button type="button" id="porta_agenda6" onclick="clica_porta_agenda(6)" class="btn btn-secondary btn-porta">N° 6</button>
+                          <div class="col">
+                            <button type="button" id="porta_agenda13" onclick="clica_porta_agenda(13)" class="btn btn-secondary btn-porta">N° 13</button>
+                            <button type="button" id="porta_agenda14" onclick="clica_porta_agenda(14)" class="btn btn-secondary btn-porta">N° 14</button>
+                            <button type="button" id="porta_agenda15" onclick="clica_porta_agenda(15)" class="btn btn-secondary btn-porta">N° 15</button>
+                            <button type="button" id="porta_agenda16" onclick="clica_porta_agenda(16)" class="btn btn-secondary btn-porta">N° 16</button>
+                            <button type="button" id="porta_agenda17" onclick="clica_porta_agenda(17)" class="btn btn-secondary btn-porta">N° 17</button>
+                            <button type="button" id="porta_agenda18" onclick="clica_porta_agenda(18)" class="btn btn-secondary btn-porta">N° 18</button>
+                          </div>
+
+                          <div class="col">
+                            <button type="button" id="porta_agenda19" onclick="clica_porta_agenda(19)" class="btn btn-secondary btn-porta">N° 19</button>
+                            <button type="button" id="porta_agenda20" onclick="clica_porta_agenda(20)" class="btn btn-secondary btn-porta">N° 20</button>
+                            <button type="button" id="porta_agenda21" onclick="clica_porta_agenda(21)" class="btn btn-secondary btn-porta">N° 21</button>
+                            <button type="button" id="porta_agenda22" onclick="clica_porta_agenda(22)" class="btn btn-secondary btn-porta">N° 22</button>
+                            <button type="button" id="porta_agenda23" onclick="clica_porta_agenda(23)" class="btn btn-secondary btn-porta">N° 23</button>
+                            <button type="button" id="porta_agenda24" onclick="clica_porta_agenda(24)" class="btn btn-secondary btn-porta">N° 24</button>
+                          </div>
                         </div>
-
-                        <div class="col">
-                          <button type="button" id="porta_agenda7" onclick="clica_porta_agenda(7)" class="btn btn-secondary btn-porta">N° 7</button>
-                          <button type="button" id="porta_agenda8" onclick="clica_porta_agenda(8)" class="btn btn-secondary btn-porta">N° 8</button>
-                          <button type="button" id="porta_agenda9" onclick="clica_porta_agenda(9)" class="btn btn-secondary btn-porta">N° 9</button>
-                          <button type="button" id="porta_agenda10" onclick="clica_porta_agenda(10)" class="btn btn-secondary btn-porta">N° 10</button>
-                          <button type="button" id="porta_agenda11" onclick="clica_porta_agenda(11)" class="btn btn-secondary btn-porta">N° 11</button>
-                          <button type="button" id="porta_agenda12" onclick="clica_porta_agenda(12)" class="btn btn-secondary btn-porta">N° 12</button>
-                        </div>
-
-                        <div class="col">
-                          <button type="button" id="porta_agenda13" onclick="clica_porta_agenda(13)" class="btn btn-secondary btn-porta">N° 13</button>
-                          <button type="button" id="porta_agenda14" onclick="clica_porta_agenda(14)" class="btn btn-secondary btn-porta">N° 14</button>
-                          <button type="button" id="porta_agenda15" onclick="clica_porta_agenda(15)" class="btn btn-secondary btn-porta">N° 15</button>
-                          <button type="button" id="porta_agenda16" onclick="clica_porta_agenda(16)" class="btn btn-secondary btn-porta">N° 16</button>
-                          <button type="button" id="porta_agenda17" onclick="clica_porta_agenda(17)" class="btn btn-secondary btn-porta">N° 17</button>
-                          <button type="button" id="porta_agenda18" onclick="clica_porta_agenda(18)" class="btn btn-secondary btn-porta">N° 18</button>
-                        </div>
-
-                        <div class="col">
-                          <button type="button" id="porta_agenda19" onclick="clica_porta_agenda(19)" class="btn btn-secondary btn-porta">N° 19</button>
-                          <button type="button" id="porta_agenda20" onclick="clica_porta_agenda(20)" class="btn btn-secondary btn-porta">N° 20</button>
-                          <button type="button" id="porta_agenda21" onclick="clica_porta_agenda(21)" class="btn btn-secondary btn-porta">N° 21</button>
-                          <button type="button" id="porta_agenda22" onclick="clica_porta_agenda(22)" class="btn btn-secondary btn-porta">N° 22</button>
-                          <button type="button" id="porta_agenda23" onclick="clica_porta_agenda(23)" class="btn btn-secondary btn-porta">N° 23</button>
-                          <button type="button" id="porta_agenda24" onclick="clica_porta_agenda(24)" class="btn btn-secondary btn-porta">N° 24</button>
-                        </div>
-
-
-
-
-                      </div>
-                      <br>
-                      <button type="button" onclick="coleta_escalonamento()" class="btn btn-primary">Agendar</button>
-                  </div>
+                        <br>
+                        <button type="button" onclick="coleta_escalonamento()" class="btn btn-primary">Agendar</button>
+                    </div> -->
 
                 <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                   Desconectar
@@ -402,6 +401,46 @@
           <i class="fa fa-plus fa-2x"></i>
         </div>
 
+
+      </div>
+
+      <div class="botoes_agenda" style="display:none" id="id_botoes_agenda">
+        <div class="row">
+          <div class="col">
+            <button type="button" id="porta_agenda1" title="Porta de Comunicação" style="cursor: not-allowed" onclick="clica_porta_agenda(1)" class="btn btn-secondary btn-porta">N° 1</button>
+            <button type="button" id="porta_agenda2" onclick="clica_porta_agenda(2)" class="btn btn-secondary btn-porta">N° 2</button>
+            <button type="button" id="porta_agenda3" onclick="clica_porta_agenda(3)" class="btn btn-secondary btn-porta">N° 3</button>
+            <button type="button" id="porta_agenda4" onclick="clica_porta_agenda(4)" class="btn btn-secondary btn-porta">N° 4</button>
+            <button type="button" id="porta_agenda5" onclick="clica_porta_agenda(5)" class="btn btn-secondary btn-porta">N° 5</button>
+            <button type="button" id="porta_agenda6" onclick="clica_porta_agenda(6)" class="btn btn-secondary btn-porta">N° 6</button>
+          </div>
+
+          <div class="col">
+            <button type="button" id="porta_agenda7" onclick="clica_porta_agenda(7)" class="btn btn-secondary btn-porta">N° 7</button>
+            <button type="button" id="porta_agenda8" onclick="clica_porta_agenda(8)" class="btn btn-secondary btn-porta">N° 8</button>
+            <button type="button" id="porta_agenda9" onclick="clica_porta_agenda(9)" class="btn btn-secondary btn-porta">N° 9</button>
+            <button type="button" id="porta_agenda10" onclick="clica_porta_agenda(10)" class="btn btn-secondary btn-porta">N° 10</button>
+            <button type="button" id="porta_agenda11" onclick="clica_porta_agenda(11)" class="btn btn-secondary btn-porta">N° 11</button>
+            <button type="button" id="porta_agenda12" onclick="clica_porta_agenda(12)" class="btn btn-secondary btn-porta">N° 12</button>
+          </div>
+
+          <div class="col">
+            <button type="button" id="porta_agenda13" onclick="clica_porta_agenda(13)" class="btn btn-secondary btn-porta">N° 13</button>
+            <button type="button" id="porta_agenda14" onclick="clica_porta_agenda(14)" class="btn btn-secondary btn-porta">N° 14</button>
+            <button type="button" id="porta_agenda15" onclick="clica_porta_agenda(15)" class="btn btn-secondary btn-porta">N° 15</button>
+            <button type="button" id="porta_agenda16" onclick="clica_porta_agenda(16)" class="btn btn-secondary btn-porta">N° 16</button>
+            <button type="button" id="porta_agenda17" onclick="clica_porta_agenda(17)" class="btn btn-secondary btn-porta">N° 17</button>
+            <button type="button" id="porta_agenda18" onclick="clica_porta_agenda(18)" class="btn btn-secondary btn-porta">N° 18</button>
+          </div>
+
+          <div class="col">
+            <button type="button" id="porta_agenda19" onclick="clica_porta_agenda(19)" class="btn btn-secondary btn-porta">N° 19</button>
+            <button type="button" id="porta_agenda20" onclick="clica_porta_agenda(20)" class="btn btn-secondary btn-porta">N° 20</button>
+            <button type="button" id="porta_agenda21" onclick="clica_porta_agenda(21)" class="btn btn-secondary btn-porta">N° 21</button>
+            <button type="button" id="porta_agenda22" onclick="clica_porta_agenda(22)" class="btn btn-secondary btn-porta">N° 22</button>
+            <button type="button" id="porta_agenda23" onclick="clica_porta_agenda(23)" class="btn btn-secondary btn-porta">N° 23</button>
+            <button type="button" id="porta_agenda24" onclick="clica_porta_agenda(24)" class="btn btn-secondary btn-porta">N° 24</button>
+          </div>
 
       </div>
 
@@ -477,24 +516,7 @@
     '24':false
   };
 
-  var escalonamento = [
-    {
-      conectar: false,
-      data: '14/06/2019',
-      horario: '15:53',
-      porta : '21',
-      executado: false
-    },
-
-    {
-      conectar: true,
-      data: '14/06/2019',
-      horario: '15:55',
-      porta : '21',
-      executado: false
-    }
-
-  ];
+var escalonamento = [];
 
 
 function conectar() {
@@ -689,18 +711,22 @@ function atualiza_tarefas() {
 
 function add_form_agenda(){
     var lista_agenda = document.getElementById('lista_agenda');
+    var botoes_agenda = document.getElementById('id_botoes_agenda').innerHTML;
+
     var html = '';
     html += '<div class="entradas">';
-    html +=    '<select class="form-control">';
+    html +=    '<select class="form-control" id="select_conexao">';
     html +=        '<option>Conectar</option>';
     html +=         '<option>Desconectar</option>';
     html +=    '</select>';
     html +=    '<br>';
-    html +=    '<input class="form-control" type="date" name="bday">';
+    html +=    '<input class="form-control" id="data_tarefa" type="date" name="bday">';
     html +=    '<br>';
-    html +=    '<input class="form-control" type="time" name="bhouer">';
+    html +=    '<input class="form-control" id="hora_tarefa" type="time" name="bhouer">';
     html +=    '<br>';
-    html +=    '<button type="button" onclick="" class="btn btn-primary">Agendar</button>';
+    html +=    botoes_agenda;
+    html +=    '<br>';
+    html +=    '<button type="button" onclick="coleta_escalonamento()" class="btn btn-primary">Agendar</button>';
     html += '</div>';
 
     lista_agenda.innerHTML = html;
@@ -736,6 +762,14 @@ function coleta_escalonamento() {
   var tipo;
   var porta = 0;
 
+  //formada data
+  data_valor = data_valor.split('-');
+  var ano = data_valor[0];
+  var mes = data_valor[1];
+  var dia = data_valor[2];
+
+  data_valor = dia+"/"+mes+"/"+ano;
+
   if(selecionado == 'Conectar'){
     tipo = true;
   }else{
@@ -754,9 +788,53 @@ function coleta_escalonamento() {
       });
     }
   }
+  escalonar_teste();
   console.log(escalonamento);
 
 }
+
+function escalonar_teste() {
+  reset_status_portas_agenda();
+  atualiza_tarefas();
+}
+
+function reset_status_portas_agenda() {
+  for(i in status_portas_agenda){
+    status_portas_agenda[i] = false;
+  }
+}
+
+function escalonar() {
+          var resposta;
+          var escalonamento_str = JSON.stringify(escalonamento);
+          var req = new XMLHttpRequest();
+          req.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200) {
+                resposta = this.responseText;
+                console.log(resposta);
+                if (resposta == "escalonado") {
+                    Swal.fire(
+                      'Agendado Sucesso',
+                      'O Switch está pronto para ser usado',
+                      'success'
+                    );
+                    add_tarefa();
+                  }
+                if(resposta == "erro"){
+                  Swal.fire({
+                    type: 'error',
+                    title: 'Ops...',
+                    text: 'Não foi possível agendar'
+                  })
+                }
+            }
+          }
+          console.log(escalonamento_str);
+          req.open('POST', '/agendar', true);
+          req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+          req.send("escalonamento="+escalonamento_str);
+
+    }
 
 
 
@@ -777,6 +855,8 @@ function coleta_escalonamento() {
       aba3.classList.remove("active");
     }
     if (numero == 2) {
+
+
       tela1.style.display = "none";
       tela2.style.display = "unset";
       tela3.style.display = "none";
@@ -785,6 +865,16 @@ function coleta_escalonamento() {
       aba3.classList.remove("active");
     }
     if (numero == 3) {
+      if(escalonamento.length == 0){
+        add_form_agenda();
+        Swal.fire(
+          'Nenhuma tarefa ainda',
+          'Agende uma nova tarefa',
+          'info'
+        );
+      }else{
+        atualiza_tarefas();
+      }
       tela1.style.display = "none";
       tela2.style.display = "none";
       tela3.style.display = "unset";
