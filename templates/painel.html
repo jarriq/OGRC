@@ -536,7 +536,7 @@ function conectar() {
 
             if(this.readyState == 4 && this.status == 200) {
                 resposta = this.responseText;
-                console.log(resposta);
+                
                 if (resposta == "conectado") {
                     Swal.fire(
                       'Conectado com Sucesso',
@@ -554,7 +554,7 @@ function conectar() {
                 }
             }
           }
-          console.log(dados_conexao_str);
+          
           req.open('POST', '/conectar', true);
           req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
           req.send("dados_conexao="+dados_conexao_str);
@@ -574,7 +574,7 @@ function controla_porta(porta, opcao) {
 
             if(this.readyState == 4 && this.status == 200) {
                 resposta = this.responseText;
-                console.log(resposta);
+                
                 if (resposta == "sucesso") {
                   if(opcao == 1){
                     Swal.fire(
@@ -607,7 +607,7 @@ function controla_porta(porta, opcao) {
                 }
             }
           }
-          console.log(porta_opcao_str);
+          
           req.open('POST', '/portas', true);
           req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
           req.send("porta_opcao="+porta_opcao_str);
@@ -691,7 +691,7 @@ function muda_botao_agenda(porta){
     };
 
     var diferenca = antes.diff( depois );
-    console.log(diferenca);
+    
     if(diferenca.length != 0){
       Swal.fire({
         type: 'success',
@@ -704,21 +704,18 @@ function muda_botao_agenda(porta){
 
   function atualiza_botao_porta(){
     var botao;
-    var antes_botao;
-    var depois_botao;
+    
     for(i in status_portas){
       botao = document.getElementById("porta"+parseInt(i));
       antes_botao = botao.classList;
       if(!status_portas[i]){
-        console.log(botao.classList);
         botao.classList.remove("btn-success");
         botao.classList.add("btn-danger");
       }else{
         botao.classList.remove("btn-danger");
         botao.classList.add("btn-success");
       }
-      depois_botao = botao.classList;
-      botao_mudou(antes_botao, depois_botao);
+      
     }
   }
 
@@ -750,6 +747,7 @@ function atualiza_tarefas() {
     var porta;
     var executado;
     for(var tarefa in escalonamento){
+      console.log(tarefa)
       conectar = escalonamento[tarefa].conectar;
       data = escalonamento[tarefa].data;
       horario = escalonamento[tarefa].horario;
@@ -842,7 +840,6 @@ function coleta_escalonamento() {
   }
   escalonar_teste();
   console.log(escalonamento);
-
 }
 
 function escalonar_teste() {
@@ -863,14 +860,14 @@ function escalonar() {
           req.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200) {
                 resposta = this.responseText;
-                console.log(resposta);
+                
                 if (resposta == "escalonado") {
                     Swal.fire(
                       'Agendado Sucesso',
                       'O Switch está pronto para ser usado',
                       'success'
                     );
-                    add_tarefa();
+                    
                   }
                 if(resposta == "erro"){
                   Swal.fire({
@@ -881,22 +878,52 @@ function escalonar() {
                 }
             }
           }
-          console.log(escalonamento_str);
+          
           req.open('POST', '/agendar', true);
           req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
           req.send("escalonamento="+escalonamento_str);
 
     }
 
+    function compara_mudanca_porta(novo_status_porta) {
+      for(var i in novo_status_porta){
+        if(novo_status_porta[i] != status_portas[i]){
+            atualiza_cor_botao();
+          
+           Swal.fire({
+                      position: 'top-end',
+                      type: 'success',
+                      title: 'Agendamento executado',
+                      showConfirmButton: false,
+                      timer: 1500
+                    });
+          break;
+        }
+      }
+    }
+
+
+    var cont = 0;
     function atualiza_status_porta() {
               var resposta;
+              var novo_status_porta;
               var req = new XMLHttpRequest();
               req.onreadystatechange = function(){
                 if(this.readyState == 4 && this.status == 200) {
                     resposta = this.responseText;
-                    console.log(resposta);
-                    status_portas = JSON.parse(resposta);
-                    atualiza_botao_porta();
+                    if(cont == 0){
+                      cont++;
+                      status_portas = JSON.parse(resposta);
+                      atualiza_cor_botao();
+                    }else{
+                      novo_status_porta = JSON.parse(resposta);
+                      console.log(novo_status_porta)
+                      compara_mudanca_porta(novo_status_porta);
+                      status_portas = JSON.parse(resposta);
+                    }
+                    
+                    
+                    
                 }
               }
               req.open('POST', '/status', true);
@@ -938,6 +965,7 @@ function escalonar() {
           'info'
         );
       }else{
+        console.log(escalonamento);
         atualiza_tarefas();
       }
       tela1.style.display = "none";
@@ -949,7 +977,9 @@ function escalonar() {
     }
   }
 
-atualiza_cor_botao();
+setInterval(function(){ atualiza_status_porta(); }, 15000);
+
+//atualiza_cor_botao();
 //atualiza_tarefas();
 
 

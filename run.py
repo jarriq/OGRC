@@ -135,9 +135,12 @@ def portas():
 
 #################### Fim Controle de Portas ####################
 
+
+
 @app.route("/status", methods=['POST'])
 def pegar_status_portas():
 	#return db.get_status_portas()
+	
 	status_portas = {
     '1':True,
     '2':True,
@@ -164,6 +167,7 @@ def pegar_status_portas():
     '23':True,
     '24':True
   }
+	
 	return json.dumps(status_portas)
 
 @app.route("/escalonamento", methods=['POST'])
