@@ -4,7 +4,7 @@ import os
 from flask import Flask, redirect, render_template, request
 
 import flask_login
-start()
+
 from ogrc import db
 from ogrc.snmp import SNMP
 from ogrc.escalonador import Escalonador

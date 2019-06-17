@@ -1,24 +1,25 @@
 
 from apscheduler.schedulers.background import BackgroundScheduler
 import datetime as dt
-import db as db
-from snmp import SNMP
+import ogrc.db as db
+from ogrc.snmp import SNMP
 import json
 
 class Escalonador():
 
     def __init__(self):
-        print ("Iniciando Escalonador...")
+        print("Iniciando Escalonador...")
         self.sched = self.prepara_agendador()
+        print("Pronto.")
 
 
     def prepara_agendador(self):
         sched = BackgroundScheduler()
         
-        agendamentos = db.lista_agendamentos()
-        print("Total de " + str(len(agendamentos)) + " encontrados")
+        agendamentos = json.loads(db.lista_agendamentos())
+    
+        print("Total de " + str(len(agendamentos)) + " agendamentos encontrados")
         for agend in agendamentos:
-            agend = json.loads(agend)
             if not agend['executado']:
                 data = self.converte_data(agend)
                 sched.add_job(lambda: self.executa_agendamento(agend),
@@ -40,7 +41,7 @@ class Escalonador():
         if snmp.testa_conexao():
             print("Conectado")
             if agend['conectar']:
-                comando = 1'executa
+                comando = 1
             else:
                 comando = 2
             
