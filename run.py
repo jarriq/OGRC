@@ -14,7 +14,7 @@ app.secret_key = os.urandom(24)
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
-esc = Escalonador() 
+esc = Escalonador()
 esc.sched.start()
 
 
@@ -137,6 +137,13 @@ def portas():
 		raise ValueError("Comando inválido != (1-3)")
 
 	if manager.altera_porta(porta, comando):
+		if comando == 1:
+			sit = True
+		elif comando == 2:
+			sit = False
+		else:
+			pass
+		db.altera_status_porta(porta, sit)
 		return "sucesso"
 	else:
 		return "fracasso"
@@ -147,56 +154,33 @@ def portas():
 
 @app.route("/status", methods=['POST'])
 def pegar_status_portas():
-	#return db.get_status_portas()
-	
-	status_portas = {
-    '1':True,
-    '2':True,
-    '3':False,
-    '4':True,
-    '5':True,
-    '6':True,
-    '7':True,
-    '8':True,
-    '9':True,
-    '10':True,
-    '11':True,
-    '12':True,
-    '13':True,
-    '14':True,
-    '15':True,
-    '16':True,
-    '17':True,
-    '18':True,
-    '19':True,
-    '20':True,
-    '21':True,
-    '22':True,
-    '23':True,
-    '24':True
-  }
-	
-	return json.dumps(status_portas)
+	status = db.get_status_portas()
+	status = json.loads(status)
+	del status["_id"]
+	del status["comunidade"]
+	return json.dumps(status)
 
 @app.route("/escalonamento", methods=['POST'])
 def pegar_agendamentos():
 	return db.lista_agendamentos()
 
 @app.route("/agendar", methods=['POST'])
-<<<<<<< HEAD
-def cadatra_agendamento():
-=======
 def agendar():
->>>>>>> e6cb75d1bbea1052030495c8c2b2b19e877cf84d
-	agend = request.form['agendamento']
+	print("agendei")
+	agend = request.form['escalonamento']
 	agend = json.loads(agend)
-	agend['ip_switch'] = manager.ip_switch
-	agend['comunidade'] = manager.comunidade
-	if db.cadastra_agendamento(agend):
-		esc.adiciona_agendamento(agend)
-		return "ok"
-	else:
-		return "erro"
+	print(agend)
+	for ag in agend:
+		ag['ip_switch'] = manager.ip_switch
+		ag['comunidade'] = manager.comunidade
+
+		if not db.cadastra_agendamento(ag):
+			return "erro"
+		esc.adiciona_agendamento(ag)
+
+	return "ok"
+
+
 
 
 

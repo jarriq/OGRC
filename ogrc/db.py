@@ -47,13 +47,21 @@ def verifica_cadastro(user, pwd):
         return True
     return False
 
-
-
-
 def get_status_portas(sala="F301"):
     db = CLIENTE['status_portas']
 
     return json.dumps(db.status_portas.find_one({"_id":sala}))
+
+def altera_status_porta(porta, situacao, sala="F301"):
+    db = CLIENTE['status_portas']
+
+    status = db.status_portas.find_one({})
+
+    #status = json.loads(status)
+    status[str(porta)] = situacao
+
+    db.status_portas.delete_one({"_id":"F301"})
+    db.status_portas.insert_one(status)
 
 def zera_status_portas():
     db = CLIENTE['status_portas']
@@ -89,8 +97,6 @@ def zera_status_portas():
     db.status_portas.insert_one(status_portas)
 
 def cadastra_agendamento(agend):
-    agend = json.loads(agend)
-
     db = CLIENTE['agendamento']
     try:
         db.agendamento.insert_one({"conectar": agend['conectar'],
@@ -118,6 +124,7 @@ def altera_status_agendamento(agend):
         return True
     except:
         return False
+
 if __name__ == '__main__':
     agend = {
           'conectar': True,

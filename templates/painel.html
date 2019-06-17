@@ -536,7 +536,7 @@ function conectar() {
 
             if(this.readyState == 4 && this.status == 200) {
                 resposta = this.responseText;
-                
+
                 if (resposta == "conectado") {
                     Swal.fire(
                       'Conectado com Sucesso',
@@ -554,7 +554,7 @@ function conectar() {
                 }
             }
           }
-          
+
           req.open('POST', '/conectar', true);
           req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
           req.send("dados_conexao="+dados_conexao_str);
@@ -574,7 +574,7 @@ function controla_porta(porta, opcao) {
 
             if(this.readyState == 4 && this.status == 200) {
                 resposta = this.responseText;
-                
+
                 if (resposta == "sucesso") {
                   if(opcao == 1){
                     Swal.fire(
@@ -607,7 +607,7 @@ function controla_porta(porta, opcao) {
                 }
             }
           }
-          
+
           req.open('POST', '/portas', true);
           req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
           req.send("porta_opcao="+porta_opcao_str);
@@ -691,7 +691,7 @@ function muda_botao_agenda(porta){
     };
 
     var diferenca = antes.diff( depois );
-    
+
     if(diferenca.length != 0){
       Swal.fire({
         type: 'success',
@@ -704,7 +704,7 @@ function muda_botao_agenda(porta){
 
   function atualiza_botao_porta(){
     var botao;
-    
+
     for(i in status_portas){
       botao = document.getElementById("porta"+parseInt(i));
       antes_botao = botao.classList;
@@ -715,7 +715,7 @@ function muda_botao_agenda(porta){
         botao.classList.remove("btn-danger");
         botao.classList.add("btn-success");
       }
-      
+
     }
   }
 
@@ -737,8 +737,10 @@ function muda_botao_agenda(porta){
   }
 
 
+var escalonamento_banco = [];
 
 function atualiza_tarefas() {
+    baixa_escolamento();
     lista_agenda = document.getElementById("lista_agenda");
     lista_agenda.innerHTML = '';
     var conectar;
@@ -746,17 +748,36 @@ function atualiza_tarefas() {
     var horario;
     var porta;
     var executado;
-    for(var tarefa in escalonamento){
+    for(var tarefa in escalonamento_banco){
       console.log(tarefa)
-      conectar = escalonamento[tarefa].conectar;
-      data = escalonamento[tarefa].data;
-      horario = escalonamento[tarefa].horario;
-      porta = escalonamento[tarefa].porta;
-      executado = escalonamento[tarefa].executado;
+      conectar = escalonamento_banco[tarefa].conectar;
+      data = escalonamento_banco[tarefa].data;
+      horario = escalonamento_banco[tarefa].horario;
+      porta = escalonamento_banco[tarefa].porta;
+      executado = escalonamento_banco[tarefa].executado;
 
       add_tarefa(conectar, data, horario, porta);
     }
   }
+
+
+  function baixa_escolamento() {
+            var resposta;
+            var escalonamento_str = JSON.stringify(escalonamento);
+            var req = new XMLHttpRequest();
+            req.onreadystatechange = function(){
+              if(this.readyState == 4 && this.status == 200) {
+                  resposta = this.responseText;
+                  escalonamento_banco =  JSON.parse(resposta);
+              }
+            }
+
+            req.open('POST', '/escalonamento', true);
+            req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+            req.send();
+
+      }
+
 
 
 function add_form_agenda(){
@@ -843,8 +864,9 @@ function coleta_escalonamento() {
 }
 
 function escalonar_teste() {
-  reset_status_portas_agenda();
-  atualiza_tarefas();
+    escalonar();
+    reset_status_portas_agenda();
+    atualiza_tarefas();
 }
 
 function reset_status_portas_agenda() {
@@ -860,14 +882,14 @@ function escalonar() {
           req.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200) {
                 resposta = this.responseText;
-                
+
                 if (resposta == "escalonado") {
                     Swal.fire(
                       'Agendado Sucesso',
                       'O Switch está pronto para ser usado',
                       'success'
                     );
-                    
+
                   }
                 if(resposta == "erro"){
                   Swal.fire({
@@ -878,7 +900,7 @@ function escalonar() {
                 }
             }
           }
-          
+
           req.open('POST', '/agendar', true);
           req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
           req.send("escalonamento="+escalonamento_str);
@@ -889,7 +911,7 @@ function escalonar() {
       for(var i in novo_status_porta){
         if(novo_status_porta[i] != status_portas[i]){
             atualiza_cor_botao();
-          
+
            Swal.fire({
                       position: 'top-end',
                       type: 'success',
@@ -920,10 +942,11 @@ function escalonar() {
                       console.log(novo_status_porta)
                       compara_mudanca_porta(novo_status_porta);
                       status_portas = JSON.parse(resposta);
+                      atualiza_cor_botao();
                     }
-                    
-                    
-                    
+
+
+
                 }
               }
               req.open('POST', '/status', true);
@@ -957,7 +980,7 @@ function escalonar() {
       aba3.classList.remove("active");
     }
     if (numero == 3) {
-      if(escalonamento.length == 0){
+      if(escalonamento_banco.length == 0){
         add_form_agenda();
         Swal.fire(
           'Nenhuma tarefa ainda',
@@ -977,10 +1000,11 @@ function escalonar() {
     }
   }
 
+atualiza_tarefas();
 setInterval(function(){ atualiza_status_porta(); }, 15000);
 
 //atualiza_cor_botao();
-//atualiza_tarefas();
+
 
 
 </script>
