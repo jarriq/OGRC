@@ -28,7 +28,7 @@ def cadastra_user(usuario):
 
     print(list(db.usuarios.find({"username":usuario})))
 
-    if not list(db.usuarios.find({"username":usuario})):
+    if list(db.usuarios.find({"username":usuario})):
         print("Usuário já cadastrado")
         return False
 
@@ -97,7 +97,10 @@ def cadastra_agendamento(agend):
                                     "data": agend['data'],
                                     "horario": agend['horario'],
                                     "porta": agend['porta'],
-                                    "executado": agend['executado']})
+                                    "ip_switch": agend['ip_switch'],
+                                    "comunidade": agend['comunidade'],
+                                    "executado": agend['executado'],
+                                    })
         return True
     except:
         return False
@@ -107,7 +110,14 @@ def lista_agendamentos():
     db = CLIENTE['agendamento']
     return json.dumps(list(db.agendamento.find({}, {'_id':0})))
 
+def altera_status_agendamento(agend):
+    db = CLIENTE['agendamento']
 
+    try:
+        db.find_one(agend, {'$set': {"executado":True}})
+        return True
+    except:
+        return False
 if __name__ == '__main__':
     agend = {
           'conectar': True,
@@ -123,8 +133,8 @@ if __name__ == '__main__':
 
     zera_status_portas()
     print(get_status_portas())
-    cadastra_agendamento(agend)
-    user =  json.dumps({'usuario':'admin', 'senha':'admin'})
+    #cadastra_agendamento(agend, "90.90.90", "private")
+    user =  json.dumps({'usuario':'admin@admin', 'senha':'admin'})
     cadastra_user(user)
     print(lista_agendamentos())
     print(verifica_cadastro('admin','admin'))
