@@ -143,16 +143,51 @@ def portas():
 
 #################### Fim Controle de Portas ####################
 
+
+
 @app.route("/status", methods=['POST'])
 def pegar_status_portas():
-	return db.get_status_portas()
+	#return db.get_status_portas()
+	
+	status_portas = {
+    '1':True,
+    '2':True,
+    '3':False,
+    '4':True,
+    '5':True,
+    '6':True,
+    '7':True,
+    '8':True,
+    '9':True,
+    '10':True,
+    '11':True,
+    '12':True,
+    '13':True,
+    '14':True,
+    '15':True,
+    '16':True,
+    '17':True,
+    '18':True,
+    '19':True,
+    '20':True,
+    '21':True,
+    '22':True,
+    '23':True,
+    '24':True
+  }
+	
+	return json.dumps(status_portas)
 
 @app.route("/escalonamento", methods=['POST'])
 def pegar_agendamentos():
 	return db.lista_agendamentos()
 
 @app.route("/agendar", methods=['POST'])
+<<<<<<< HEAD
 def cadatra_agendamento():
+=======
+def agendar():
+>>>>>>> e6cb75d1bbea1052030495c8c2b2b19e877cf84d
 	agend = request.form['agendamento']
 	agend = json.loads(agend)
 	agend['ip_switch'] = manager.ip_switch
@@ -179,7 +214,7 @@ def cadatra_agendamento():
 # 	- A entrada é uma linha do json chamado escalonamento (olhar painel.html)
 # 	- Retorna ok para cadastrado e erro para não cadastrado
 
-# Fazer funcao (método post) que retorna todas as tarefas agendadas 
+# Fazer funcao (método post) que retorna todas as tarefas agendadas
 # 	- O retorno deve ser um json, igual ao json escalonamento do arquivo painel.html
 
 if __name__=="__main__":
