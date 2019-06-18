@@ -8,5 +8,7 @@ setup(name='SNMP Manager',
         install_requires=[
                 "pysnmp",
                 "flask",
+                "apscheduler",
+                "pymongo"
                 ]
 )

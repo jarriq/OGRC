@@ -1,2 +1,4 @@
-Flask
-snmp
+"pysnmp",
+"flask",
+"apscheduler",
+"pymongo"

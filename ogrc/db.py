@@ -3,15 +3,18 @@ from pymongo import MongoClient
 
 CLIENTE = MongoClient('localhost', 27017)
 """
-collections:
-
+Coleções no banco
     usuarios:
         username : str
         password : str
 
-    portas:
+    status_portas:
         porta : bool,
-        _id : str sala
+        _id : str (nome da sala)
+
+        a acrescentar:
+        -ip_switch: 'str' ip do switch da sala
+        -comunidade: 'str' comunidade do switch da sala
 
     escalonamento:
         conectar: bool,
@@ -19,10 +22,16 @@ collections:
         horario: str,
         porta : str,
         executado: bool
-
-
 """
+
 def cadastra_user(usuario):
+    """
+    Dado um json usuario no formato
+    {"username": 'str' nomeusuario, "senha": 'str' senha}
+    cadastra o mesmo no banco na colecao usuarios (autorizados)
+
+    Retorna False caso falha na insercao e True caso contrario
+    """
     usuario = json.loads(usuario)
     db = CLIENTE['usuarios']
 
@@ -37,6 +46,11 @@ def cadastra_user(usuario):
     return True
 
 def verifica_cadastro(user, pwd):
+    """
+    Dado 'str' usuario (user) e  'str' senha (pwd),
+    Retorna True caso cadastrado,
+    False caso contrario
+    """
     db = CLIENTE['usuarios']
 
     res = db.usuarios.find({"username":user,
@@ -48,26 +62,38 @@ def verifica_cadastro(user, pwd):
     return False
 
 def get_status_portas(sala="F301"):
+    """
+    Dada uma sala, retorna 'dict',
+    com status das portas conforme
+    coleção status portas
+    """
     db = CLIENTE['status_portas']
 
     return json.dumps(db.status_portas.find_one({"_id":sala}))
 
 def altera_status_porta(porta, situacao, sala="F301"):
+    """
+    Altera o status de uma porta em uma sala,
+    conforme porta dada e situacao ('conectar' ou 'desconectar')
+    """
     db = CLIENTE['status_portas']
 
     status = db.status_portas.find_one({})
-
-    #status = json.loads(status)
     status[str(porta)] = situacao
 
     db.status_portas.delete_one({"_id":"F301"})
     db.status_portas.insert_one(status)
 
-def zera_status_portas():
+def zera_status_portas(sala="F301", comunidade=comunidade, ip_switch=ip_switch):
+    """
+    Utilitario  para resetar as porta de uma sala
+
+    TODO: incluir IP do switch
+    """
     db = CLIENTE['status_portas']
     status_portas = {
-        '_id':"F301",
-        'comunidade': 'private',
+        '_id':sala,
+        'comunidade': comunidade,
         '1':True,
         '2':True,
         '3':True,
@@ -97,6 +123,13 @@ def zera_status_portas():
     db.status_portas.insert_one(status_portas)
 
 def cadastra_agendamento(agend):
+    """
+    Cadastra agendamento no banco conforme
+    formato da coleção agendamentos,
+    recebe formato 'dict'
+    Retorna True em caso de sucesso,
+    e Falso caso contrario
+    """
     db = CLIENTE['agendamento']
     try:
         db.agendamento.insert_one({"conectar": agend['conectar'],
@@ -113,10 +146,20 @@ def cadastra_agendamento(agend):
 
 
 def lista_agendamentos():
+    """
+    Retorna lista de 'dicts' com agendamentos
+    cadastrados no banco
+    """
     db = CLIENTE['agendamento']
     return json.dumps(list(db.agendamento.find({}, {'_id':0})))
 
 def altera_status_agendamento(agend):
+    """
+    Altera status de uma agendamento no banco para "executado",
+    utilitario do modulo escalonamento
+    Retorna True em caso de sucesso
+    e False caso contrario
+    """
     db = CLIENTE['agendamento']
 
     try:
@@ -126,23 +169,6 @@ def altera_status_agendamento(agend):
         return False
 
 if __name__ == '__main__':
-    agend = {
-          'conectar': True,
-          'data': '14/06/2019',
-          'horario': '15:55',
-          'porta' : '21',
-          'executado': False
-          }
-    agend = json.dumps(agend)
-
-    banco = CLIENTE['teste']
-    teste = banco.teste
-
     zera_status_portas()
-    print(get_status_portas())
-    #cadastra_agendamento(agend, "90.90.90", "private")
-    user =  json.dumps({'usuario':'admin@admin', 'senha':'admin'})
+    user =  json.dumps({'usuario':'admin@admin.com', 'senha':'admin'})
     cadastra_user(user)
-    print(lista_agendamentos())
-    print(verifica_cadastro('admin','admin'))
-    print(verifica_cadastro('admin','admin2'))

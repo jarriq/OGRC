@@ -14,6 +14,12 @@ class Escalonador():
 
 
     def prepara_agendador(self):
+        """
+        Busca agendamentos no banco de dados,
+        retorna BackgroundScheduler, com agendamentos
+        cadastrados no banco. Também iniciliza o
+        atributo no Escalonador
+        """
         sched = BackgroundScheduler()
 
         agendamentos = json.loads(db.lista_agendamentos())
@@ -24,15 +30,25 @@ class Escalonador():
                 data = self.converte_data(agend)
                 sched.add_job(lambda: self.executa_agendamento(agend),
                             'date', run_date=data)
-
         return sched
 
     def adiciona_agendamento(self, agend):
+        """
+        Recebe um 'dict' com dados do agendamento,
+        conforme formato do banco, e cadastra
+        o mesmo no BackgroundScheduler, atributo do
+        Escalonador
+        """
         data = self.converte_data(agend)
         self.sched.add_job(lambda: self.executa_agendamento(agend),
                            'date', run_date=data)
 
     def executa_agendamento(self, agend):
+        """
+        Executa agendamento proveniente do 'dict' agend,
+        alterando o status da porta, tanto fisicamente
+        quanto no banco
+        """
         print("Executando agendamento...")
         print(agend)
 
@@ -53,17 +69,12 @@ class Escalonador():
 
         db.altera_status_agendamento(agend)
 
-
-
     def converte_data(self, agend):
-        print(agend)
+        """
+        Converte o formato data recebido no formato
+        'str' do agend para 'datetime'
+        """
         dia = agend['data']
         hora = agend['horario']
         data  = dt.datetime.strptime(dia + " " + hora, r'%d/%m/%Y %H:%M')
         return data
-
-
-if __name__=="__main__":
-    e = Escalonador()
-    print(e.converte_data({"data":"14/06/2017","hora":"16:00"}))
-    #sudo ip a add 10.0.0.133/8 dev enp2s0
