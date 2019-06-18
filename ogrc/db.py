@@ -84,7 +84,7 @@ def altera_status_porta(porta, situacao, sala="F301"):
     db.status_portas.delete_one({"_id":"F301"})
     db.status_portas.insert_one(status)
 
-def zera_status_portas(sala="F301", comunidade=comunidade, ip_switch=ip_switch):
+def zera_status_portas(sala="F301", comunidade="private", ip_switch="10.90.90.90"):
     """
     Utilitario  para resetar as porta de uma sala
 
